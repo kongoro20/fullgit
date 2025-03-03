@@ -1,0 +1,44 @@
+
+bash run.sh : run full script---->requerement: live server on deepnote to get captcha code and github gist 
+
+test1.py///test2.py///test3.py//test7.py//deleteworkspace : are commun between jetbrain or outlook and github
+
+test4.py: valable pour jetbrain or outlook and github selon le lien de site a visiter pour creer un compte
+
+
+
+1/test1.py
+
+2/test2.py
+
+3/test3.py
+
+4/test4.py
+
+5/save.py
+
+5'/omocaptha.py
+
+6/outlook1.py
+
+7/outlook2.py
+
+8/outlook3.py
+
+9/outlook4.py----------------------------->i ignored outlook4.py on run.sh because it seem that no need to use it
+
+10/outlook5.py
+
+11/outlook6.py
+
+12/github1.py
+
+13/github2.py
+
+14/github3.py
+
+15/github4.py
+
+16/test7.py
+
+17/deleteworkspace.py
