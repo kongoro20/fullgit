@@ -1,14 +1,20 @@
 #!/bin/bash
 
-# Step 1: Run the first script (hey1.sh)
-echo "Running hey1.sh..."
+# Remove the stop flag at the beginning
+rm -f stop_repl2.flag
+
+echo "Running tempmail.py..."
 python3 tempmail.py
 
-# Step 3: Run the third script (repl1.py)
 echo "Running repl1.py..."
 python3 repl1.py
 
-# Step 4: Run the fourth script (repl2.py)
+# Check if stop flag exists
+if [ -f "stop_repl2.flag" ]; then
+    echo "Stop flag detected. Stopping script1.sh and exiting..."
+    exit 1  # Return an error code so play.sh knows script1.sh failed
+fi
+
 echo "Running repl2.py..."
 python3 repl2.py
 
