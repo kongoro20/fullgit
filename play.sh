@@ -19,6 +19,23 @@ pip install --upgrade pillow
 pip install opencv-python-headless
 pip install pyperclip
 sleep 2
-bash script1.sh
+while true; do
+  bash script1.sh
+
+  if [ $? -eq 0 ]; then
+    break  # Exit loop if script1.sh succeeds
+  fi
+
+  echo "script1.sh failed. Restarting..."
+  sleep 2
+done
+
+# Sleep for 2 seconds before starting the next script
 sleep 2
+
+# Run setup.sh and wait for it to finish
 bash run.sh
+if [ $? -ne 0 ]; then
+  echo "setup.sh failed, exiting..."
+  exit 1
+fi
