@@ -1,4 +1,10 @@
 #!/bin/bash
+
+if [[ -f "exit_signal.txt" ]]; then
+  echo "Exit signal detected in play.sh. Exiting..."
+  exit 0
+fi
+
 bash setup.sh
 
 # Activate the Python virtual environment
@@ -32,6 +38,11 @@ done
 
 # Sleep for 2 seconds before starting the next script
 sleep 2
+
+if [[ -f "exit_signal.txt" ]]; then
+  echo "Exit signal detected in play.sh. Exiting..."
+  exit 0
+fi
 
 # Run setup.sh and wait for it to finish
 bash run.sh
