@@ -21,6 +21,8 @@ time.sleep(7)
 # Run the Python script named copy.py
 subprocess.run(["python3", "consent.py"])
 time.sleep(1)
+pyautogui.click(98, 82)
+time.sleep(1)
 subprocess.run(["python3", "copy11.py"])
 time.sleep(1)
 pyautogui.click(287, 45)
