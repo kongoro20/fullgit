@@ -99,7 +99,7 @@ def perform_additional_tasks():
     time.sleep(3)
 
 if __name__ == "__main__":
-    max_cycles = 2
+    max_cycles = 4
     cycle = 0
     button_detected = False
 
