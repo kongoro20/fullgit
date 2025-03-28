@@ -71,7 +71,7 @@ pyautogui.moveTo(random_x, random_y, duration=random.uniform(0.5, 1.5))  # Move 
 pyautogui.click()
 time.sleep(1)
 
-for _ in range(6):
+for _ in range(7):
     pyautogui.press('tab')
     time.sleep(0.5)
 
