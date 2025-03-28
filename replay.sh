@@ -1,7 +1,8 @@
 #!/bin/bash
 
 sleep 1
-source myenv/bin/activate  # Fixed path since myenv is in /root
+source /root/fullgit/myenv/bin/activate  # Explicit path to myenv
+export DISPLAY=:1  # Ensure DISPLAY is set (redundant with Supervisor, but safe)
 export XAUTHORITY=/root/.Xauthority  # Ensure X server access
 sleep 2
 
