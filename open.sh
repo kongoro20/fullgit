@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Load virtual environment
-source myenv/bin/activate
-
-#!/bin/bash
-
 # Read the expected profile name from the file
 PROFILE_NAME=$(cat current_profile.txt | tr -d '[:space:]')
 
