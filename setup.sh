@@ -34,9 +34,9 @@ sudo bash -c 'cat <<EOF > /etc/supervisor/conf.d/replay.conf
 [program:replay_script]
 command=/bin/bash -c "cd /root/fullgit && bash replay.sh"
 directory=/root/fullgit
-autostart=true
+autostart=false  # Changed to false to prevent immediate start
 autorestart=true
-startsecs=10
+startsecs=20
 stderr_logfile=/root/replay_err.log
 stdout_logfile=/root/replay_out.log
 environment=DISPLAY=:1,XAUTHORITY=/root/.Xauthority
@@ -46,13 +46,14 @@ EOF'
 sudo supervisorctl reread
 sudo supervisorctl update
 
-# Start the Supervisor program
-sudo supervisorctl start replay_script
+# Do NOT start the program immediately
+# Commenting out the start command
+# sudo supervisorctl start replay_script
 
-# Verify if Supervisor configuration was added successfully
+# Verify Supervisor configuration was added successfully
 if [ $? -eq 0 ]; then
-    echo "Supervisor configuration successfully added and started."
+    echo "Supervisor configuration successfully added (not started yet)."
 else
-    echo "Failed to add or start Supervisor configuration."
+    echo "Failed to add Supervisor configuration."
     exit 1
 fi
