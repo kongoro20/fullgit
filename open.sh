@@ -3,6 +3,12 @@
 export DISPLAY=:1  # Ensure DISPLAY is set
 export XAUTHORITY=/root/.Xauthority  # Ensure X server access
 
+# Check if current_profile.txt exists and is not empty
+if [ ! -f current_profile.txt ] || [ ! -s current_profile.txt ]; then
+    echo "❌ Error: current_profile.txt is missing or empty!" | tee -a /root/replay_err.log
+    exit 1
+fi
+
 # Read the expected profile name from the file
 PROFILE_NAME=$(cat current_profile.txt | tr -d '[:space:]')
 
@@ -10,7 +16,7 @@ PROFILE_NAME=$(cat current_profile.txt | tr -d '[:space:]')
 PROFILE_DIR=$(find ~/.mozilla/firefox -maxdepth 1 -type d -name "*$PROFILE_NAME" | head -n 1)
 
 if [ -z "$PROFILE_DIR" ]; then
-    echo "❌ Error: Firefox profile '$PROFILE_NAME' not found!" | tee -a /root/replay_err.log
+    echo "❌ Error: Firefox profile '$PROFILE_NAME' not found in ~/.mozilla/firefox!" | tee -a /root/replay_err.log
     exit 1
 fi
 
