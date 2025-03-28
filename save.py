@@ -3,7 +3,7 @@ import subprocess
 import time
 
 # Server URL
-SERVER_URL = "https://sandbox-a34641e86fbb45e696da6f908e95f21e-ethereum-8070.prod-sandbox.chainide.com/get_item"
+SERVER_URL = "https://00594aac-181a-49dd-a9b2-01942ee547d5.deepnoteproject.com/get_item"
 
 def get_item():
     while True:
