@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sleep 1
-source /root/myenv/bin/activate
+source myenv/bin/activate
 sleep 2
 
 echo "Starting open.sh..." >> /root/replay_out.log
