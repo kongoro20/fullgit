@@ -3,41 +3,38 @@
 # Load virtual environment
 source myenv/bin/activate
 
-# Get the last created Firefox profile from `current_profile.txt`
-if [ ! -f "current_profile.txt" ]; then
-    echo "Error: current_profile.txt not found!"
+#!/bin/bash
+
+# Read the expected profile name from the file
+PROFILE_NAME=$(cat current_profile.txt | tr -d '[:space:]')
+
+# Find the actual profile directory (matching any random prefix)
+PROFILE_DIR=$(find ~/.mozilla/firefox -maxdepth 1 -type d -name "*$PROFILE_NAME" | head -n 1)
+
+if [ -z "$PROFILE_DIR" ]; then
+    echo "❌ Error: Firefox profile '$PROFILE_NAME' not found!"
     exit 1
 fi
 
-PROFILE_NAME=$(cat current_profile.txt)
-PROFILE_DIR="$HOME/.mozilla/firefox/$PROFILE_NAME"
+echo "✅ Found Firefox profile: $PROFILE_DIR"
 
-# Check if the profile directory exists
-if [ ! -d "$PROFILE_DIR" ]; then
-    echo "Error: Firefox profile '$PROFILE_NAME' not found!"
-    exit 1
-fi
+# Open Firefox with the correct profile
+nohup firefox --no-remote --new-instance --profile "$PROFILE_DIR" --purgecaches &> /dev/null &
 
-echo "Launching Firefox with profile: $PROFILE_NAME"
-
-# Open Firefox with the profile
-nohup firefox --no-remote --new-instance --profile "$PROFILE_DIR" &> /dev/null &
-
-# Wait for Firefox to fully open
+# Wait for Firefox to load
 sleep 2
 
-# Click on (584, 81) using xdotool
-echo "Clicking on (584, 81)..."
+# Click on (584,81) using xdotool
 xdotool mousemove 584 81 click 1
 
-# Wait before typing
+# Wait 0.5 seconds
 sleep 0.5
 
-# Type "www.replit.com" and press Enter
+# Type 'www.replit.com' and press Enter
 xdotool type "www.replit.com"
 xdotool key Return
 
-# Wait for 14 seconds
+# Wait 14 seconds
 sleep 14
 
-echo "Process completed!"
+echo "✅ Done!"
