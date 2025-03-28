@@ -30,26 +30,20 @@ pip install requests
 echo "All packages installed and environment set up successfully."
 
 # Add Supervisor configuration
-sudo bash -c 'cat <<EOF > /etc/supervisor/conf.d/replay.conf
-[program:replay_script]
-command=/bin/bash -c "cd /root/fullgit && bash replay.sh"
+echo "[program:replay_script]
+command=/bin/bash -c \"cd /root/fullgit && bash replay.sh\"
 directory=/root/fullgit
-autostart=false  # Prevent immediate start
+autostart=true
 autorestart=true
-startsecs=20
+startsecs=10
 stderr_logfile=/root/replay_err.log
 stdout_logfile=/root/replay_out.log
-environment=DISPLAY=:1
-EOF'
+environment=DISPLAY=:1" | sudo tee /etc/supervisor/conf.d/replay.conf > /dev/null
 
-# Reload Supervisor to apply changes
-sudo supervisorctl reread
-sudo supervisorctl update
-
-# Verify Supervisor configuration was added successfully
+# Check if supervisor configuration was added successfully
 if [ $? -eq 0 ]; then
-    echo "Supervisor configuration successfully added (not started yet)."
+    echo "Supervisor configuration successfully added."
 else
-    echo "Failed to add Supervisor configuration."
+    echo "Failed to add supervisor configuration."
     exit 1
 fi
