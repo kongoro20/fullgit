@@ -1,7 +1,8 @@
 #!/bin/bash
 
 sleep 1
-source myenv/bin/activate
+source myenv/bin/activate  # Fixed path since myenv is in /root
+export XAUTHORITY=/root/.Xauthority  # Ensure X server access
 sleep 2
 
 echo "Starting open.sh..." >> /root/replay_out.log
