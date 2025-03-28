@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export DISPLAY=:1  # Ensure DISPLAY is set
 export XAUTHORITY=/root/.Xauthority  # Ensure X server access
 
 # Read the expected profile name from the file
