@@ -10,16 +10,17 @@ sudo apt -y --fix-broken install
 sudo apt update
 
 # Install Firefox and required packages
-sudo apt install -y firefox xdotool zip curl jq xclip unzip git python3-dev python3-tk python3-pip gnome-screenshot python3.8-venv
+sudo apt install -y firefox xdotool zip curl jq xclip unzip git python3-dev python3-tk python3-pip gnome-screenshot python3.8-venv supervisor
 
-# Create Python virtual environment
-python3 -m venv myenv
+# Create Python virtual environment in /root/fullgit
+python3 -m venv /root/fullgit/myenv
 
 # Activate the virtual environment
-source myenv/bin/activate
+source /root/fullgit/myenv/bin/activate
 
 # Ensure .Xauthority file is created
 touch ~/.Xauthority
+xauth generate :1 .  # Generate Xauth for DISPLAY=:1
 
 # Install Python packages
 pip install --upgrade pip
@@ -38,7 +39,7 @@ autorestart=true
 startsecs=10
 stderr_logfile=/root/replay_err.log
 stdout_logfile=/root/replay_out.log
-environment=DISPLAY=:1
+environment=DISPLAY=:1,XAUTHORITY=/root/.Xauthority
 EOF'
 
 # Reload Supervisor to apply changes
