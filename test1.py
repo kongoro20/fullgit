@@ -104,7 +104,7 @@ time.sleep(2)
 check_exit_signal()
 
 # Step 7: Navigate using "Tab" key and press Enter
-for _ in range(3):
+for _ in range(4):
     pyautogui.press('tab')
     time.sleep(1)
     check_exit_signal()
