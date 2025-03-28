@@ -3,6 +3,7 @@
 # Add Mozilla Team PPA for Firefox
 sudo add-apt-repository -y ppa:mozillateam/ppa
 
+# Fix broken dependencies
 sudo apt -y --fix-broken install
 
 # Update package list
@@ -21,29 +22,36 @@ source myenv/bin/activate
 touch ~/.Xauthority
 
 # Install Python packages
-pip install pyautogui
-pip install --upgrade pillow
-pip install opencv-python-headless
-pip install requests
+pip install --upgrade pip
+pip install pyautogui pillow opencv-python-headless requests
 
 # Output completion message
 echo "All packages installed and environment set up successfully."
 
-# Add supervisor configuration
-echo "[program:replay_script]
+# Add Supervisor configuration
+sudo bash -c 'cat <<EOF > /etc/supervisor/conf.d/replay.conf
+[program:replay_script]
 command=/bin/bash -c "cd /root/fullgit && bash replay.sh"
-directory=/root
+directory=/root/fullgit
 autostart=true
 autorestart=true
 startsecs=10
 stderr_logfile=/root/replay_err.log
 stdout_logfile=/root/replay_out.log
-environment=DISPLAY=:1" | sudo tee /etc/supervisor/conf.d/replay.conf > /dev/null
+environment=DISPLAY=:1
+EOF'
 
-# Check if supervisor configuration was added successfully
+# Reload Supervisor to apply changes
+sudo supervisorctl reread
+sudo supervisorctl update
+
+# Start the Supervisor program
+sudo supervisorctl start replay_script
+
+# Verify if Supervisor configuration was added successfully
 if [ $? -eq 0 ]; then
-    echo "Supervisor configuration successfully added."
+    echo "Supervisor configuration successfully added and started."
 else
-    echo "Failed to add supervisor configuration."
+    echo "Failed to add or start Supervisor configuration."
     exit 1
 fi
