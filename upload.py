@@ -4,7 +4,7 @@ import requests
 import time
 
 # FastAPI server URL
-FASTAPI_SERVER_URL = "https://sandbox-7a9db848363e46e8aeb1dd57e74bbfc0-ethereum-8050.prod-sandbox.chainide.com/upload"
+FASTAPI_SERVER_URL = "https://4f68e2cf-7140-471d-977f-a86380d0e026.deepnoteproject.com/upload"
 
 def get_profile_path(profile_name):
     """Finds the profile folder using the profile name."""
