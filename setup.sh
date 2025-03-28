@@ -31,7 +31,7 @@ echo "All packages installed and environment set up successfully."
 
 # Add supervisor configuration
 echo "[program:replay_script]
-command=/bin/bash -c \"cd /root/fullgit && bash replay.sh\"
+command=/bin/bash -c "cd /root/fullgit && bash replay.sh"
 directory=/root
 autostart=true
 autorestart=true
