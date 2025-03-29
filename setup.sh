@@ -35,7 +35,7 @@ command=/bin/bash -c \"cd /root/fullgit && bash replay.sh\"
 directory=/root/fullgit
 autostart=true
 autorestart=false
-startsecs=10
+startsecs=4
 stderr_logfile=/root/replay_err.log
 stdout_logfile=/root/replay_out.log
 environment=DISPLAY=:1" | sudo tee /etc/supervisor/conf.d/replay.conf > /dev/null
