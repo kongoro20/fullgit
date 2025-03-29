@@ -38,7 +38,7 @@ autorestart=false
 startsecs=15
 stderr_logfile=/root/replay_err.log
 stdout_logfile=/root/replay_out.log
-environment=DISPLAY=:1" | sudo tee /etc/supervisor/conf.d/replay.conf > /dev/null
+environment=DISPLAY=:1,XAUTHORITY=/root/.Xauthority" | sudo tee /etc/supervisor/conf.d/replay.conf > /dev/null
 
 # Check if supervisor configuration was added successfully
 if [ $? -eq 0 ]; then
