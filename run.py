@@ -38,6 +38,8 @@ def detect_web_button(script_name):
             print(f"Web button not detected by {script_name}. Retrying...")
             time.sleep(1)
             pyautogui.click(99, 83)
+            time.sleep(1)
+            pyautogui.press('enter')
             time.sleep(10)
 
 def perform_additional_tasks():
