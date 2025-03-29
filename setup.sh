@@ -9,7 +9,7 @@ sudo apt -y --fix-broken install
 sudo apt update
 
 # Install Firefox and required packages
-sudo apt install -y firefox xdotool zip curl jq xclip unzip git python3-dev python3-tk python3-pip gnome-screenshot python3.8-venv supervisor
+sudo apt install -y firefox wmctrl xdotool zip curl jq xclip unzip git python3-dev python3-tk python3-pip gnome-screenshot python3.8-venv supervisor
 
 # Create Python virtual environment
 python3 -m venv /root/fullgit/myenv
