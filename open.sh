@@ -1,52 +1,65 @@
 #!/bin/bash
 
-export DISPLAY=:1  # Ensure DISPLAY is set
-export XAUTHORITY=/root/.Xauthority  # Ensure X server access
+LOCK_FILE="/tmp/open_sh.lock"
 
-# Check if current_profile.txt exists and is not empty
-if [ ! -f current_profile.txt ] || [ ! -s current_profile.txt ]; then
-    echo "❌ Error: current_profile.txt is missing or empty!" | tee -a /root/replay_err.log
+# Check if another instance is running
+if [ -f "$LOCK_FILE" ]; then
+    echo "⚠️ Warning: Another instance of open.sh is already running!" | tee -a /root/replay_out.log
     exit 1
 fi
 
-# Read the expected profile name from the file
-PROFILE_NAME=$(cat current_profile.txt | tr -d '[:space:]')
+# Create lock file
+touch "$LOCK_FILE"
+trap 'rm -f "$LOCK_FILE"' EXIT  # Ensure lock file is removed on script exit
 
-# Find the actual profile directory (matching any random prefix)
-PROFILE_DIR=$(find ~/.mozilla/firefox -maxdepth 1 -type d -name "*$PROFILE_NAME" | head -n 1)
+export DISPLAY=:1
+export XAUTHORITY=/root/.Xauthority
+export MOZ_DISABLE_RDD_SANDBOX=1  # Fix sandbox issues
+export NO_AT_BRIDGE=1  # Prevent accessibility issues
+
+LOG_OUT="/root/replay_out.log"
+LOG_ERR="/root/replay_err.log"
+
+echo "Starting open.sh..." | tee -a "$LOG_OUT"
+
+if [ ! -f current_profile.txt ] || [ ! -s current_profile.txt ]; then
+    echo "❌ Error: current_profile.txt is missing or empty!" | tee -a "$LOG_ERR"
+    exit 1
+fi
+
+PROFILE_NAME=$(cat current_profile.txt | tr -d '[:space:]')
+PROFILE_DIR=$(find ~/.mozilla/firefox -maxdepth 1 -type d -name "*$PROFILE_NAME*" | head -n 1)
 
 if [ -z "$PROFILE_DIR" ]; then
-    echo "❌ Error: Firefox profile '$PROFILE_NAME' not found in ~/.mozilla/firefox!" | tee -a /root/replay_err.log
+    echo "❌ Error: Profile '$PROFILE_NAME' not found!" | tee -a "$LOG_ERR"
     exit 1
 fi
 
-echo "✅ Found Firefox profile: $PROFILE_DIR" >> /root/replay_out.log
+echo "✅ Found profile: $PROFILE_DIR" | tee -a "$LOG_OUT"
 
-# Open Firefox with the correct profile (no nohup, run in background)
-firefox --no-remote --new-instance --profile "$PROFILE_DIR" --purgecaches >> /root/replay_out.log 2>> /root/replay_err.log &
+# Ensure Firefox is not already running before starting it
+if pgrep -fa "firefox.*$PROFILE_NAME" > /dev/null; then
+    echo "⚠️ Warning: Firefox is already running!" | tee -a "$LOG_OUT"
+else
+    echo "Starting Firefox..." | tee -a "$LOG_OUT"
+    firefox --no-remote --new-instance --profile "$PROFILE_DIR" --purgecaches > /dev/null 2>> "$LOG_ERR" &
+    sleep 3  # Allow time for Firefox to start
+fi
 
-# Wait for Firefox to load
-sleep 5  # Increased to ensure Firefox is fully open
-
-# Verify Firefox is running
-if ! pgrep -f "firefox.*$PROFILE_DIR" > /dev/null; then
-    echo "❌ Error: Firefox failed to start!" | tee -a /root/replay_err.log
+# Verify Firefox started successfully
+if ! pgrep -fa "firefox.*$PROFILE_NAME" > /dev/null; then
+    echo "❌ Error: Firefox failed to start!" | tee -a "$LOG_ERR"
     exit 1
 fi
 
-echo "✅ Firefox is running" >> /root/replay_out.log
+echo "✅ Firefox is running!" | tee -a "$LOG_OUT"
 
-# Click on (584,81) using xdotool
-xdotool mousemove 584 81 click 1 >> /root/replay_out.log 2>> /root/replay_err.log
-
-# Wait 0.5 seconds
+# Simulate user interaction
+xdotool mousemove 584 81 click 1
 sleep 0.5
-
-# Type 'www.replit.com' and press Enter
-xdotool type "www.replit.com" >> /root/replay_out.log 2>> /root/replay_err.log
-xdotool key Return >> /root/replay_out.log 2>> /root/replay_err.log
-
-# Wait 14 seconds
+xdotool type "www.replit.com"
+xdotool key Return
 sleep 14
 
-echo "✅ Done!" >> /root/replay_out.log
+echo "✅ open.sh completed successfully!" | tee -a "$LOG_OUT"
+exit 0
