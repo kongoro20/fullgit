@@ -34,7 +34,7 @@ echo "[program:replay_script]
 command=/bin/bash -c \"cd /root/fullgit && bash replay.sh\"
 directory=/root/fullgit
 autostart=true
-autorestart=true
+autorestart=false
 startsecs=10
 stderr_logfile=/root/replay_err.log
 stdout_logfile=/root/replay_out.log
