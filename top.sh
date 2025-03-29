@@ -3,7 +3,7 @@
 for i in {1..30}
 do
     echo "Running play.sh - Attempt $i"
-    bash play.sh
+    source play.sh
     if [ $? -ne 0 ]; then
       echo "play.sh failed on attempt $i, restarting loop."
       continue  # Restart the loop on failure
