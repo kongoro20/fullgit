@@ -8,7 +8,7 @@ fi
 bash setup.sh
 
 # Activate the Python virtual environment
-source ./myenv/bin/activate
+source /root/fullgit/myenv/bin/activate
 
 # Check if activation was successful
 if [ $? -ne 0 ]; then
