@@ -43,8 +43,12 @@ for ((i=1; i<=10; i++)); do
 
     if [[ -f "$script" ]]; then
       echo "Running $script..."
+      
+      # Set timeouts based on the script
       if [[ "$script" == "outlook4.py" ]]; then
         timeout 100s python3 "$script" &
+      elif [[ "$script" == "test3.py" ]]; then
+        timeout 300s python3 "$script" &
       else
         timeout 250s python3 "$script" &
       fi
@@ -58,7 +62,7 @@ for ((i=1; i<=10; i++)); do
       if [[ "$script" == "outlook4.py" && $exit_status -eq 124 ]]; then
         echo "Script $script exceeded 100 seconds. Skipping..."
         continue
-      elif [[ $exit_status -eq 124 ]]; then
+      elif [[ "$exit_status" -eq 124 ]]; then
         echo "Script $script exceeded 7 minutes. Exiting."
         exit 1
       fi
