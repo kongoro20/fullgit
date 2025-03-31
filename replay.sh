@@ -3,7 +3,7 @@
 # Start Xvfb if it's not already running
 if ! pgrep -x "Xvfb" > /dev/null; then
     echo "Starting Xvfb..."
-    Xvfb :1 -screen 0 1366x768x16 &
+    Xvfb :1 -screen 0 1366x641x16 &
     sleep 2
 fi
 
@@ -18,6 +18,34 @@ sleep 2
 
 LOG_OUT="/root/replay_out.log"
 LOG_ERR="/root/replay_err.log"
+LOCK_FILE="/tmp/open_sh.lock"
+
+# Kill any existing open.sh process
+echo "Stopping any running instance of open.sh..." | tee -a "$LOG_OUT"
+
+# List all running instances before attempting to kill them
+echo "Current running open.sh instances (before kill):" | tee -a "$LOG_OUT"
+pgrep -fal "bash open.sh" | tee -a "$LOG_OUT"
+
+for pid in $(pgrep -f "bash open.sh"); do
+    echo "Killing open.sh process with PID: $pid" | tee -a "$LOG_OUT"
+    kill -9 "$pid"
+    sleep 1
+done
+
+# Ensure process is completely killed
+if pgrep -f "bash open.sh" > /dev/null; then
+    echo "❌ ERROR: Failed to terminate open.sh! Checking again..." | tee -a "$LOG_ERR"
+    sleep 2
+    pgrep -fal "bash open.sh" | tee -a "$LOG_ERR"
+    exit 1
+fi
+
+# Ensure the lock file is removed before restarting
+if [ -f "$LOCK_FILE" ]; then
+    echo "⚠️ Lock file found! Removing..." | tee -a "$LOG_OUT"
+    rm -f "$LOCK_FILE"
+fi
 
 echo "Starting open.sh..." | tee -a "$LOG_OUT"
 
