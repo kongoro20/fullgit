@@ -85,7 +85,7 @@ def perform_actions():
     # Random click in specific areas
     random_click_in_area((740, 389), (845, 396))
     time.sleep(random.uniform(1, 1.5))
-    random_click_in_area((742, 426), (829, 452))
+    random_click_in_area((737, 420), (839, 430))
     time.sleep(random.uniform(0.5, 1))
     random_click_in_area((516, 388), (689, 396))
     time.sleep(random.uniform(0.5, 1))
