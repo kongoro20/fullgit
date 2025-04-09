@@ -3,8 +3,8 @@ import subprocess
 import time
 
 # Server URL
-SERVER_URL = "https://00594aac-181a-49dd-a9b2-01942ee547d5.deepnoteproject.com/get_item"
-
+SERVER_URL = "https://17e0d0b6-2d21-4b7f-b999-1e3861403867.deepnoteproject.com/get_item"
+# https://00594aac-181a-49dd-a9b2-01942ee547d5.deepnoteproject.com
 def get_item():
     while True:
         try:
