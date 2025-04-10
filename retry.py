@@ -4,7 +4,7 @@ import sys
 
 try:
     # Attempt to locate the shutdown button image
-    shutdown_button_location = pyautogui.locateCenterOnScreen('shutdown_button.png', confidence=0.8)
+    shutdown_button_location = pyautogui.locateCenterOnScreen('shutdown_button.png', confidence=0.87)
 
     if shutdown_button_location is None:
         print("Shutdown button not found. Proceeding normally...")  # Print a message if button not found
