@@ -2,47 +2,60 @@ import pyautogui
 import time
 import os
 
-# Wait before starting the detection
+# Step 1: Sleep for 3 seconds before starting
 time.sleep(3)
 
-# Image file paths
-verif_button_image = 'ok_button.png'
-verif1_button_image = 'okko_button.png'
-verif2_button_image = 'yeso_button.png'
+# Paths to the images of the verification buttons
+verif_button_image = 'okko_button.png'
+verif1_button_image = 'yeso_button.png'
 
-# All button images to check
-button_images = [verif_button_image, verif1_button_image, verif2_button_image]
+# Maximum number of detection attempts
+max_attempts = 1000
 
-# Maximum attempts
-max_attempts = 100000
+# Check if both image files exist
+if not os.path.isfile(verif_button_image):
+    print(f"Error: The image file '{verif_button_image}' does not exist.")
+if not os.path.isfile(verif1_button_image):
+    print(f"Error: The image file '{verif1_button_image}' does not exist.")
 
-# Verify that all image files exist
-for img in button_images:
-    if not os.path.isfile(img):
-        print(f"Error: The image file '{img}' does not exist.")
-
-# Start detection loop
+# Loop for a maximum number of attempts
 for attempt in range(max_attempts):
-    print(f"\nAttempt {attempt + 1} of {max_attempts}...")
+    print(f"Attempt {attempt + 1} of {max_attempts}: Attempting to detect verification buttons...")
 
-    # Wait before each detection attempt
+    # Sleep before each detection attempt
     time.sleep(2)
 
-    for img_path in button_images:
-        try:
-            print(f"Looking for: {img_path}")
-            location = pyautogui.locateOnScreen(img_path, confidence=0.85)
-            if location:
-                print(f"Found '{img_path}' at {location}, clicking...")
-                time.sleep(1)
-                pyautogui.click(location)
-                print(f"Clicked '{img_path}' successfully.")
-                exit(0)  # Exit after successful click
-        except Exception as e:
-            print(f"Error detecting '{img_path}': {e}")
+    # Try to detect the first verification button
+    button_location = None
+    try:
+        print(f"Trying to detect: {verif_button_image}")
+        button_location = pyautogui.locateOnScreen(verif_button_image, confidence=0.8)
+    except Exception as e:
+        print(f"Error while detecting '{verif_button_image}': {e}")
 
-    print("No button detected. Pressing Down Arrow key...")
-   
+    if button_location:
+        print(f"'{verif_button_image}' detected at {button_location}, clicking...")
+        time.sleep(1)
+        pyautogui.click(button_location)
+        print(f"'{verif_button_image}' clicked!")
+        break
+
+    # Try to detect the second verification button
+    try:
+        print(f"Trying to detect: {verif1_button_image}")
+        button_location = pyautogui.locateOnScreen(verif1_button_image, confidence=0.92)
+    except Exception as e:
+        print(f"Error while detecting '{verif1_button_image}': {e}")
+
+    if button_location:
+        print(f"'{verif1_button_image}' detected at {button_location}, clicking...")
+        time.sleep(1)
+        pyautogui.click(button_location)
+        print(f"'{verif1_button_image}' clicked!")
+        break
+
+    print(f"Neither '{verif_button_image}' nor '{verif1_button_image}' detected. Pressing Down Arrow key...")
+    
 
 else:
-    print("Maximum attempts reached. Exiting...")
+    print("Maximum detection attempts reached. Exiting...")
