@@ -51,7 +51,6 @@ def perform_third_part():
 # Step 5: Click again at (1343, 221)
     pyautogui.click(1343, 221)
     time.sleep(1)
-    subprocess.run(["python3", "copy2.py"])
 # Run the script
 if __name__ == "__main__":
     perform_third_part()
