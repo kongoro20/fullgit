@@ -33,6 +33,8 @@ def perform_third_part():
     time.sleep(0.5)
     pyautogui.press('enter')  # Press Enter
     time.sleep(18)
+    subprocess.run(["python3", "load.py"])
+    time.sleep(1)
     pyautogui.click(1343, 221)
 
 # Step 2: Sleep for 1 second
