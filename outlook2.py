@@ -24,6 +24,7 @@ def generate_random_year(start=1990, end=2002):
 # Continue actions
 def continue_actions():
     # Random click in specific area
+    time.sleep(4)
     random_click_in_area((516, 482), (611, 498))
     time.sleep(random.uniform(0.5, 1))
 
