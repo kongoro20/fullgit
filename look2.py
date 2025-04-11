@@ -14,10 +14,14 @@ def detect_web_button(script_name):
             return  # Exit the loop and proceed to next tasks
         else:
             print(f"Web button not detected by {script_name}. Retrying...")
-            pyautogui.click(428, 221)
-            time.sleep(0.7)
-            pyautogui.press("enter")
-            time.sleep(13)
+            pyautogui.click(251, 180)
+            time.sleep(1)
+            pyautogui.click(285, 176)
+            time.sleep(1)
+            pyautogui.click(252, 178)
+            time.sleep(1)
+            subprocess.run(["python3", "repeat1.py"])
+            time.sleep(1)
 
 def perform_additional_tasks():
     """Define tasks to perform after the web button is detected."""
