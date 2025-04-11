@@ -26,6 +26,7 @@ scripts=(
   "github3.py"
   "github4.py"
   "test7.py"
+  "download_button.py"
   "deleteworkspace.py"
 )
 
@@ -58,7 +59,7 @@ for ((i=1; i<=50; i++)); do
       exit_status=$?
 
       # Skip timeout error handling for save.py
-      if [[ "$script" != "save.py" ]]; then
+      if [[ "$script" != "save.py" && "$script" != "download_button.py" ]]; then
         # Handle timeout conditions
         if [[ "$script" == "outlook4.py" && $exit_status -eq 124 ]]; then
           echo "Script $script exceeded 100 seconds. Skipping..."
