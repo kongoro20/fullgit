@@ -60,21 +60,4 @@ time.sleep(1)
 # Step 11: Press Enter to run the Python script
 pyautogui.press('enter')
 print("Pressed Enter")
-
-# Button detection after Step 11
-detect_button_via_script('download_button.py')  # Assuming 'download_button.py' handles button detection
-time.sleep(7)
-# Step 12: Click on the location (1324, 119)
-pyautogui.click(26, 128)
-print("Clicked on (1324, 119)")
-time.sleep(2)
-pyautogui.press('enter')
-time.sleep(4)
-subprocess.run(["python3", "windowtab.py"])
 time.sleep(1)
-pyautogui.click(random.randint(705, 826), random.randint(168, 200))
-time.sleep(1)
-# Clean up: Delete 'generated_filename.txt'
-if os.path.exists('generated_filename.txt'):
-    os.remove('generated_filename.txt')
-    print("Deleted 'generated_filename.txt'")
