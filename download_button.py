@@ -1,28 +1,42 @@
-# download_button.py
 import pyautogui
 import time
-import sys
+import subprocess
 
-def wait_for_button(image_path='downloadlinksaved_button.png', confidence_level=0.8):
-    """Continuously wait for the button to appear until found."""
-    print(f"Waiting for {image_path} to appear...")
+def detect_web_button(script_name):
+    """Run an external script to detect the web button and keep trying until successful."""
+    while True:
+        # Start the external detection script
+        process = subprocess.Popen(['python3', script_name])
+        process.wait()  # Wait for it to finish
 
-    start_time = time.time()  # Record the start time
-    timeout = 20  # Timeout after 20 seconds (you can adjust this)
+        if process.returncode == 0:  # Success code indicates the button was found
+            print(f"Web button detected and clicked by {script_name}. Proceeding with tasks...")
+            return  # Exit the loop and proceed to next tasks
+        else:
+            print(f"Web button not detected by {script_name}. Retrying...")
+            time.sleep(2)
 
-    while True:  # Loop until timeout or button is found
-        button_location = pyautogui.locateCenterOnScreen(image_path, confidence=confidence_level, grayscale=True)
-        if button_location:
-            print(f"{image_path} found at {button_location}. Clicking...")
-            pyautogui.click(button_location)
-            sys.exit(0)  # Exit successfully once the button is found
-        
-        # Check if the timeout has been reached
-        if time.time() - start_time > timeout:
-            print(f"{image_path} not found within {timeout} seconds. Exiting with failure.")
-            sys.exit(1)  # Exit with error code if button is not found
-
-        time.sleep(1.5)  # Sleep briefly before checking again
+def perform_additional_tasks():
+    """Define tasks to perform after the web button is detected."""
+    print("Performing additional tasks...")
+    time.sleep(8)
+    pyautogui.click(26, 128)
+    time.sleep(2)
+    pyautogui.press('enter')
+    time.sleep(4)
+    subprocess.run(["python3", "windowtab.py"])
+    time.sleep(1)
+    pyautogui.click(random.randint(705, 826), random.randint(168, 200))
+    time.sleep(1)
+    # Clean up: Delete 'generated_filename.txt'
+    if os.path.exists('generated_filename.txt'):
+        os.remove('generated_filename.txt')
+        print("Deleted 'generated_filename.txt'")
+    time.sleep(1)    
 
 if __name__ == "__main__":
-    wait_for_button()
+    # Step 1: Detect the web button via the detection script
+    detect_web_button('downlink.py')
+
+    # Step 2: Perform additional tasks after the web button is detected
+    perform_additional_tasks()
