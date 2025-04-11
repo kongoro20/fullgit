@@ -20,6 +20,7 @@ scripts=(
   "outlook2.py"
   "outlook3.py"
   "outlook4.py"
+  "copy2.py"
   "github1.py"
   "github2.py"
   "github3.py"
