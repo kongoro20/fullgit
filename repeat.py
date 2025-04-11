@@ -32,7 +32,7 @@ def generate_random_password(length=9):
 # Main function
 def perform_actions():
     # Write "www.outlook.com"
-    human_typing("www.outlook.com")
+    pyautogui.write("www.outlook.com")
     time.sleep(0.5)
 
     # Press Enter
