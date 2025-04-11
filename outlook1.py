@@ -111,7 +111,7 @@ def perform_actions():
 
     # Random click in specific area
     random_click_in_area((765, 516), (845, 529))
-    time.sleep(random.uniform(7, 9))
+    time.sleep(random.uniform(10, 12))
 
     # Write a random password (9-11 characters)
     random_password = generate_random_password(random.randint(9, 11))
@@ -129,7 +129,7 @@ def perform_actions():
 
     # Random click in specific area
     random_click_in_area((762, 504), (847, 516))
-    time.sleep(random.uniform(4, 5))
+    time.sleep(random.uniform(7, 8.5))
 
     pyautogui.click(650, 469)
     time.sleep(1)
@@ -154,7 +154,7 @@ def perform_actions():
 
     # Random click in specific area
     random_click_in_area((765, 503), (843, 514))
-    time.sleep(random.uniform(4, 5))
+    time.sleep(random.uniform(7, 8.5))
 
 # Run the sequence
 if __name__ == "__main__":
