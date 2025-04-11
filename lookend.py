@@ -32,7 +32,7 @@ def perform_third_part():
     pyautogui.write("https://go.microsoft.com/fwlink/p/?LinkID=2125442&deeplink=owa%2F")  # Type URL
     time.sleep(0.5)
     pyautogui.press('enter')  # Press Enter
-    time.sleep(14)
+    time.sleep(18)
     pyautogui.click(1343, 221)
 
 # Step 2: Sleep for 1 second
