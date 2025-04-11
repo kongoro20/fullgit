@@ -29,7 +29,7 @@ def perform_third_part():
     pyautogui.click(248, 178)  # Click at (248, 178)
     time.sleep(1)
 
-    human_typing("https://go.microsoft.com/fwlink/p/?LinkID=2125442&deeplink=owa%2F")  # Type URL
+    pyautogui.write("https://go.microsoft.com/fwlink/p/?LinkID=2125442&deeplink=owa%2F")  # Type URL
     time.sleep(0.5)
     pyautogui.press('enter')  # Press Enter
     time.sleep(14)
