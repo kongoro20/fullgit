@@ -40,8 +40,7 @@ print("Clicked on (599, 165)")
 time.sleep(1)
 
 # Step 39: Write "output" and press Enter
-pyautogui.write('output')
-print("Typed 'output'")
+pyautogui.write('vnc')
 time.sleep(1)
 pyautogui.press('enter')
 print("Pressed Enter")
