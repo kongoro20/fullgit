@@ -120,6 +120,8 @@ time.sleep(1)
 check_exit_signal()
 pyautogui.click(261, 348)
 time.sleep(1.5)
+pyautogui.click(261, 348)
+time.sleep(1.5)
 # Step 8: Final clicks
 pyautogui.click(147, 169)
 time.sleep(2)
