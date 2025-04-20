@@ -54,6 +54,8 @@ def perform_actions():
 
     # Random click in specific area
     random_click_in_area((229, 531), (338, 555))
+    time.sleep(0.3)
+    random_click_in_area((229, 531), (338, 555))
     time.sleep(14)
 
 # Run the sequence
