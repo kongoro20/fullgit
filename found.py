@@ -3,7 +3,7 @@ import pyautogui
 import time
 import sys
 
-def wait_for_web_button(image_path='copy_button.png', confidence_level=0.8):
+def wait_for_web_button(image_path='copy_button.png', confidence_level=0.7):
     """Continuously wait for the web button to appear and click it once found."""
     print(f"Waiting for {image_path} to appear...")
 
